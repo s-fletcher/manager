@@ -35,7 +35,7 @@ export const LogGroupsComboBox: FC<{ logGroupNames: string[] }> = ({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-[250px] justify-between",
+            "w-[500px] justify-between",
             values.length === 0 ? "opacity-50" : ""
           )}
         >
@@ -49,8 +49,13 @@ export const LogGroupsComboBox: FC<{ logGroupNames: string[] }> = ({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[250px] p-0">
-        <Command>
+      <PopoverContent className="w-[500px] p-0">
+        <Command
+          filter={(value, search) => {
+            if (value.includes(search)) return 1;
+            return 0;
+          }}
+        >
           <CommandInput placeholder="Search stacks..." />
           <CommandEmpty>No log group found.</CommandEmpty>
           <CommandGroup>
